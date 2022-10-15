@@ -1,0 +1,43 @@
+<!-- <app-auth></app-auth> -->
+
+<div class="container py-5">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card card-body rounded-0 mb-4 bg-dark">
+        <h1>DApp</h1>
+        <h6 class="text-muted">Decentralized Task</h6>
+        <span>Wallet</span>
+        <span>{{addressUser}}</span>
+      </div>
+
+      <form class="card card-body bg-dark rounded-0" [formGroup]="form" (ngSubmit)="onSubmit()">
+        <h4>Save a Task</h4>
+        <input type="text" placeholder="Write a Task" formControlName="title"
+          class="form-control bg-dark text-white rounded-0 my-4" />
+
+        <textarea rows="2" class="form-control bg-dark text-white rounded-0 my-4" formControlName="description"
+          placeholder="I have to do..."></textarea>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+      </form>
+    </div>
+    <div class="col-md-8">
+      task list
+      <div class="card bg-dark rounded-0 mb-2" *ngFor="let task of taskList">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <span>{{task.title}}</span>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" [checked]="task.done" (click)="togleDone(task.id)">
+            <!-- <label class="form-check-label" for="flexCheckDefault">
+              Default checkbox
+            </label> -->
+          </div>
+        </div>
+        <div class="card-body">
+          <span>{{task.description}}</span>
+          <p class="text-muted">Task was created {{task.createdAt}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+version: "3.4"
+services:
+  # frontend:
+  #   container_name: frontend
+  #   command: tail -f /dev/null
+  #   build:
+  #     context: .
+  #     dockerfile: ./frontend/Dockerfile
+  #   volumes:
+  #     - ./frontend:/home/app
+  #     # - "/home/app/node_modules"
+  #   ports:
+  #     - 4200:4200
+  #     - 49153:49153
+  #   depends_on:
+  #     - truffle
+  truffle:
+    container_name: truffle
+    build:
+      context: .
+      target: truffle
+      dockerfile: ./Blockchain/Dockerfile
+    depends_on:
+      - ganache
+    networks:
+      - backend
+    volumes:
+      - ./Blockchain:/home/app
+  ganache:
+    container_name: ganache
+    command: ganache -p 8545 -h 0.0.0.0 --database.dbPath /home/ganache -d
+    volumes:
+      - ./Blockchain/ganache_backup:/home/app
+    build:
+      context: .
+      target: ganache
+      dockerfile: ./Blockchain/Dockerfile
+    ports:
+      - 8545:8545
+    networks:
+      - backend
+networks:
+  backend:
+    driver: "bridge"

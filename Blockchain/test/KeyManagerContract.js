@@ -68,29 +68,4 @@ contract("KeyManagerContract", () => {
 
 
 
-    // it("task toggled true", async ()=>{
-    //     const data = {
-    //         title: 'task test',
-    //         description: 'task description'
-    //     };
-    //     const resultTask = await this.contract.createTask(data.title, data.description);
-    //     const eventTask = resultTask.logs[0].args;
-    //     const result = await this.contract.toggleDone(eventTask.id.toNumber());
-    //     const event = result.logs[0].args;
-    //     assert.equal(event.done, true); 
-    // });
-
-    // it("task toggled false", async ()=>{
-    //     const data = {
-    //         title: 'task test',
-    //         description: 'task description'
-    //     };
-    //     const resultTask = await this.contract.createTask(data.title, data.description);
-    //     const eventTask = resultTask.logs[0].args;
-    //     await this.contract.toggleDone(eventTask.id.toNumber());
-    //     const result = await this.contract.toggleDone(eventTask.id.toNumber());
-    //     const event = result.logs[0].args;
-    //     assert.equal(event.done, false); 
-    // });
-
 });

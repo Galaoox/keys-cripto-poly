@@ -1,1 +1,51 @@
-<p>form works!</p>
+<form class=" needs-validation card card-body bg-dark rounded-0" #FormModal id="form-modal" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="col-md-12">
+      <label for="field-title" class="form-label">Titulo:</label>
+      <input type="text" placeholder="Titulo" formControlName="title" id="field-title"
+      class="form-control bg-dark text-white rounded-0"  validateInput required />
+      <div class="invalid-feedback">
+        <span *ngIf="form.get('title')?.hasError('required') ">Este campo es requerido</span>
+        <span *ngIf="form.get('title')?.hasError('maxlength') ">Este campo permite maximo 100 caracteres</span>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <label for="field-user" class="form-label">Usuario:</label>
+      <input type="text" placeholder="Usuario" formControlName="user" id="field-user"
+      class="form-control bg-dark text-white rounded-0 " validateInput />
+      <div class="invalid-feedback">
+        <span *ngIf="form.get('user')?.hasError('maxlength') ">Este campo permite maximo 100 caracteres</span>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <label for="field-password" class="form-label">Contrasenna:</label>
+      <div class="input-group has-validation">
+        <input type="text" placeholder="Contrasenna" formControlName="password" id="field-password"
+        class="form-control bg-dark text-white rounded-0 " validateInput required  />
+        <button class="input-group-text" type="button" (click)="iSpasswordShow = !iSpasswordShow" >
+          <i  [ngClass]="!iSpasswordShow ? 'bi-eye' : 'bi-eye-slash-fill'" class="bi"></i>
+        </button>
+        <button class="input-group-text" type="button" (click)="openGenerator()" >
+          <i class="bi bi-gear"></i>
+        </button>
+        <div class="invalid-feedback">
+          <span *ngIf="form.get('password')?.hasError('required') ">Este campo es requerido</span>
+          <span *ngIf="form.get('password')?.hasError('maxlength') ">Este campo permite maximo 50 caracteres</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-md-12">
+      <label for="field-note" class="form-label">Nota:</label>
+      <textarea rows="2" class="form-control bg-dark text-white rounded-0 " formControlName="note" id="field-note"
+      placeholder="Nota" validateInput></textarea>
+      <div class="invalid-feedback">
+        <span *ngIf="form.get('note')?.hasError('maxlength') ">Este campo permite maximo 200 caracteres</span>
+      </div>
+    </div>
+    <div class="col-md-12 d-flex justify-content-end">
+      <button type="button" class="btn btn-danger mx-3" >Cancelar</button>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+</form>

@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Key } from '../../models/Key.model';
+import { FormComponent } from '../form/form.component';
 
 @Component({
   selector: 'app-list',
@@ -10,7 +12,7 @@ export class ListComponent implements OnInit {
 
   page = 1;
   pageSize = 4;
-  items: Key[]  = [
+  items: Key[] = [
     {
       title: 'Facebook',
       user: 'user',
@@ -41,5 +43,6 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
 
 }

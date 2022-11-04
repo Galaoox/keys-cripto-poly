@@ -12,8 +12,6 @@ import { TasksContractService } from './services/tasks-contract.service';
 export class AppComponent implements OnInit {
   title = 'app';
 
-  form: UntypedFormGroup;
-
   loginUser: boolean = false;
   addressUser: string = '';
   addressUserView: boolean = false;
@@ -23,8 +21,7 @@ export class AppComponent implements OnInit {
 
   taskList: any[] = [];
 
-  constructor(private fb: UntypedFormBuilder, private authWeb3Service: AuthWeb3Service, private cdr: ChangeDetectorRef, private taskContractService: TasksContractService) {
-    this.form = this.createForm();
+  constructor(private authWeb3Service: AuthWeb3Service, private cdr: ChangeDetectorRef, private taskContractService: TasksContractService) {
     this.web3 = this.authWeb3Service.web3Instance;
   }
 
@@ -55,20 +52,7 @@ export class AppComponent implements OnInit {
     this.taskList = await this.taskContractService.getTasks();
   }
 
-  createForm() {
-    return this.fb.group({
-      title: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-    });
-  }
 
-  async onSubmit() {
-    if (this.form.valid) {
-      await this.taskContractService.createTask(this.form.value.title, this.form.value.description, this.addressUser);
-      this.form.reset();
-      await this.loadTasks();
-    }
-  }
 
 
 

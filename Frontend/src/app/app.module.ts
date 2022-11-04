@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListComponent } from './components/list/list.component';
 import { FormComponent } from './components/form/form.component';
 import { GeneratorPasswordComponent } from './components/generator-password/generator-password.component';
+import { ValidateInputDirective } from './directives/validate-input.directive';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { GeneratorPasswordComponent } from './components/generator-password/gene
     ListComponent,
     FormComponent,
     GeneratorPasswordComponent,
+    ValidateInputDirective
 
   ],
   imports: [

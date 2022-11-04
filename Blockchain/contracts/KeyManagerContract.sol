@@ -11,7 +11,7 @@ contract KeyManagerContract {
     struct Key {
         // tipo de dato
         string title;
-        string user;
+        string user;    
         string password;
         string note;
     }

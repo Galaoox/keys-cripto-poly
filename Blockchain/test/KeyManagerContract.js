@@ -19,10 +19,10 @@ contract("KeyManagerContract", () => {
 
     it("key created sucefully", async () => {
         const data = {
-            title: "test title",
             user: "test user",
             password: "test password",
-            note: "test note"
+            note: "test note",
+            title: 'test title'
         };
         const result = await this.contract.createKey(addressTest, data);
         const event = result.logs[0].args;
@@ -40,7 +40,7 @@ contract("KeyManagerContract", () => {
             title: "test title erick",
             user: "test user",
             password: "test password",
-            note: "test note"
+            note: "test note",
         };
         await this.contract.updateKey(addressTest, 0, data);
         let keysAfter = await this.contract.getKeys(addressTest);
@@ -52,7 +52,7 @@ contract("KeyManagerContract", () => {
             title: "test different title",
             user: "test user",
             password: "test password",
-            note: "test note"
+            note: "test note",
         };
         await this.contract.createKey(addressTest, data);
         await this.contract.createKey(addressTest, data);

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Key } from '../../models/Key.model';
 import { KeyManagerContractService } from '../../services/key-manager-contract.service';
@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
 })
-export class ListComponent implements OnInit, OnDestroy {
+export class ListComponent implements OnInit, OnDestroy, OnChanges {
   @Output() onUpdate = new EventEmitter();
   @Output() onView = new EventEmitter();
 
@@ -29,8 +29,16 @@ export class ListComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     await this.keyManagerContract.loadContract();
-    await this.getKeys();
     this.subscriptions();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if( changes['disabled'].currentValue == false){
+      this.getKeys();
+    }else{
+      this.items = [];
+      this.itemsFiltered = [];
+    }
   }
 
   ngOnDestroy(){

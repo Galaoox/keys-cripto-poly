@@ -46,6 +46,4 @@ export class KeyManagerContractService {
     await this.contract.deleteKey(this.addressUser, rowIndex, {from: this.addressUser });
   }
 
-
-
 }

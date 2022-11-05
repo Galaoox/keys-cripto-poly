@@ -52,7 +52,7 @@ export class FormComponent implements  OnChanges, OnInit {
   }
 
   async onSubmit() {
-    if (this.form.valid) {
+    if (!this.modeView && this.form.valid) {
 
       const data : Key = new Key({
         title: this.form.value.title,
@@ -68,7 +68,7 @@ export class FormComponent implements  OnChanges, OnInit {
       this.form.reset();
       this.modeUpdate = false;
       this.reload.emit();
-    }else{
+    }else if(!this.modeView && !this.form.valid){
       this.renderer.addClass(this.formGeneral?.nativeElement, 'was-validated');
     }
   }
@@ -102,12 +102,35 @@ export class FormComponent implements  OnChanges, OnInit {
 
   }
 
+
+  async toView(key : Key){
+    try {
+      this.form.reset();
+      this.modeView = true;
+      this.modeUpdate = false;
+      this.form.setValue({
+        title: key.title,
+        note: await this.decrypt(key.note, this.keyMasterValue) ,
+        user: await this.decrypt(key.user, this.keyMasterValue)  ,
+        password: await this.decrypt(key.password, this.keyMasterValue)  ,
+      });
+    } catch (error) {
+      this.errorDecrypt();
+    }
+  }
+
   errorDecrypt(){
     this.alertService.show({
       title: 'Error',
       text: 'Error al desencriptar la clave, verifique que la clave maestra sea correcta',
       confirmButtonText: 'Aceptar'
     })
+  }
+
+  cancel(){
+    this.form.reset();
+    this.modeUpdate = false;
+    this.modeView = false;
   }
 
 

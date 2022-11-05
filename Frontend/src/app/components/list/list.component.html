@@ -30,9 +30,11 @@
             <div ngbDropdown container="body">
               <button type="button" class="btn btn-primary btn-sm" ngbDropdownToggle [disabled]="disabled">Opciones</button>
               <div ngbDropdownMenu>
+                <button ngbDropdownItem (click)="view(item)">Ver</button>
+                <div class="dropdown-divider"></div>
                 <button ngbDropdownItem (click)="update(item)">Editar</button>
                 <div class="dropdown-divider"></div>
-                <button ngbDropdownItem>Eliminar</button>
+                <button ngbDropdownItem (click)="delete(item.rowIndex)">Eliminar</button>
               </div>
             </div>
           </td>

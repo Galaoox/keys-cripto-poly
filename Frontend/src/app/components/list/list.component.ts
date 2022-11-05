@@ -11,6 +11,8 @@ import { Subscription } from 'rxjs';
 })
 export class ListComponent implements OnInit, OnDestroy {
   @Output() onUpdate = new EventEmitter();
+  @Output() onView = new EventEmitter();
+
   @Input() disabled = false;
 
   page = 1;
@@ -60,12 +62,17 @@ export class ListComponent implements OnInit, OnDestroy {
     this.onUpdate.emit(item);
   }
 
-  async delete(rowIndex: number){
-    await this.keyManagerContract.deleteKey(rowIndex);
-    await this.getKeys();
+  async delete(rowIndex?: number){
+    if(rowIndex != undefined && rowIndex != null){
+      await this.keyManagerContract.deleteKey(rowIndex);
+      await this.getKeys();
+    }
+
   }
 
-
+  async view( key : Key){
+      this.onView.emit(key);
+  }
 
 
 }

@@ -75,4 +75,8 @@ export class AppComponent implements OnInit {
     await this.formComp?.toUpdate(event);
   }
 
+  async onView(event: Key){
+    await this.formComp?.toView(event);
+  }
+
 }

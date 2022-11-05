@@ -1,5 +1,5 @@
 <form class=" needs-validation card card-body bg-dark rounded-0" #FormModal id="form-modal" [formGroup]="form" (ngSubmit)="onSubmit()">
-<h3>{{ modeUpdate ? 'Editar' : 'Crear' }}</h3>
+<h3>{{ modeUpdate ? 'Editar' : modeView ? 'Ver' : 'Crear' }}</h3>
 
     <div class="col-md-12">
       <label for="field-title" class="form-label">Titulo:</label>
@@ -47,7 +47,7 @@
       </div>
     </div>
     <div class="col-md-12 d-flex justify-content-end">
-      <button type="button" class="btn btn-danger mx-3" [disabled]="this.form.disabled" >Cancelar</button>
-      <button type="submit" class="btn btn-primary" [disabled]="this.form.disabled">{{modeUpdate ? 'Actualizar': 'Crear'}}</button>
+      <button type="button" class="btn btn-danger mx-3" [disabled]="this.form.disabled" (click)="cancel()" >Cancelar</button>
+      <button type="submit" *ngIf="!modeView" class="btn btn-primary" [disabled]="this.form.disabled">{{modeUpdate ? 'Actualizar': 'Crear'}}</button>
     </div>
 </form>

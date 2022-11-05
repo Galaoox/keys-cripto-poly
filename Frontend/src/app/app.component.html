@@ -34,7 +34,7 @@
       <app-form #formComp (reload)="reloadData()" [keyMasterValue]="addressUser ? keyMasterValue: ''"></app-form>
     </div>
     <div class="col-md-7">
-      <app-list #list (onUpdate)="onUpdate($event)" [disabled]="!keyMasterValue || !addressUser"></app-list>
+      <app-list #list (onUpdate)="onUpdate($event)" (onView)="onView($event)" [disabled]="!keyMasterValue || !addressUser"></app-list>
     </div>
   </div>
 </div>

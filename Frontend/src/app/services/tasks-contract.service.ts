@@ -10,8 +10,12 @@ import { AuthWeb3Service } from './auth-web3.service';
 export class TasksContractService {
 
   contract : any;
+  addressUser: string = '';
 
-  constructor(private authWeb3Service: AuthWeb3Service) { }
+  constructor(private authWeb3Service: AuthWeb3Service) {
+
+
+   }
 
   async loadContract(){
     const result = TruffleContract(TasksContractArtifact);

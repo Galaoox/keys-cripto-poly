@@ -1,8 +1,8 @@
 <form>
-  <div class="mb-3 row">
-    <label for="table-complete-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
+  <div class="mb-3 row d-flex justify-content-end">
+    <label for="table-complete-search" class="col-xs-3 col-sm-auto col-form-label">Buscar:</label>
     <div class="col-xs-3 col-sm-auto">
-      <input id="table-complete-search" type="text" class="form-control" name="searchTerm" />
+      <input id="table-complete-search" type="text" [formControl]="searchControl" class="form-control bg-dark text-white rounded-0" [disabled]="disabled"  />
     </div>
   </div>
 
@@ -18,25 +18,31 @@
       </tr>
     </thead>
     <tbody>
-
-      <tr *ngFor="let item of items ">
-        <td>
-          {{item.title}}
-        </td>
-        <td class="overflow-hidden">
-          <div ngbDropdown container="body">
-            <button type="button" class="btn btn-primary btn-sm" ngbDropdownToggle>Opciones</button>
-            <div ngbDropdownMenu>
-              <button ngbDropdownItem>Editar</button>
-              <div class="dropdown-divider"></div>
-              <button ngbDropdownItem>Eliminar</button>
+      <tr class='text-center' *ngIf="!itemsFiltered?.length; else rows">
+        <td colspan='2'>No hay registros</td>
+      </tr>
+      <ng-template #rows>
+        <tr *ngFor="let item of itemsFiltered ">
+          <td>
+            {{item.title}}
+          </td>
+          <td class="overflow-hidden">
+            <div ngbDropdown container="body">
+              <button type="button" class="btn btn-primary btn-sm" ngbDropdownToggle [disabled]="disabled">Opciones</button>
+              <div ngbDropdownMenu>
+                <button ngbDropdownItem (click)="update(item)">Editar</button>
+                <div class="dropdown-divider"></div>
+                <button ngbDropdownItem>Eliminar</button>
+              </div>
             </div>
-          </div>
-        </td>
+          </td>
+        </tr>
+      </ng-template>
+
     </tbody>
   </table>
 
-  <div class="d-flex justify-content-between ">
-    <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="items.length"></ngb-pagination>
+  <div class="d-flex justify-content-end ">
+    <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="itemsFiltered.length" [disabled]="disabled"></ngb-pagination>
   </div>
 </form>

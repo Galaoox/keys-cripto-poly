@@ -66,7 +66,6 @@ export class AuthWeb3Service {
 
   async handleAccountsChanged() {
     const accounts: string[] = await window.ethereum.request({ method: 'eth_requestAccounts' });
-    console.log(accounts);
     this.addressUser.next(accounts[0]);
     this.authBackend();
 

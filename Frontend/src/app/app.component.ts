@@ -1,7 +1,9 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { AuthWeb3Service } from './services/auth-web3.service';
-import { TasksContractService } from './services/tasks-contract.service';
+import { ListComponent } from './components/list/list.component';
+import { FormComponent } from './components/form/form.component';
+import { Key } from './models/Key.model';
 
 
 @Component({
@@ -10,6 +12,8 @@ import { TasksContractService } from './services/tasks-contract.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  @ViewChild('list') list?: ListComponent;
+  @ViewChild('formComp') formComp?: FormComponent;
   title = 'app';
 
   loginUser: boolean = false;
@@ -21,9 +25,14 @@ export class AppComponent implements OnInit {
 
   taskList: any[] = [];
 
-  constructor(private authWeb3Service: AuthWeb3Service, private cdr: ChangeDetectorRef, private taskContractService: TasksContractService) {
+  keyMaster  = new FormControl('', [Validators.required]);
+  hasKeyMaster: boolean =false;
+  keyMasterValue: string = '';
+
+  constructor(private authWeb3Service: AuthWeb3Service, private cdr: ChangeDetectorRef) {
     this.web3 = this.authWeb3Service.web3Instance;
   }
+
 
 
 
@@ -39,26 +48,31 @@ export class AppComponent implements OnInit {
       this.cdr.detectChanges();
     });
     await this.connect();
-    await this.taskContractService.loadContract();
-    await this.loadTasks();
   }
 
   async connect() {
     await this.authWeb3Service.connect();
   }
 
-
-  async loadTasks() {
-    this.taskList = await this.taskContractService.getTasks();
+  async reloadData(){
+    if(this.list)this.list.getKeys();
   }
 
+  async deleteKey(){
+    this.keyMaster.setValue('');
+    this.keyMasterValue = '';
+    this.hasKeyMaster = false;
+  }
 
+  async insertKey(){
+    if(this.keyMaster.value){
+      this.hasKeyMaster = true;
+      this.keyMasterValue = this.keyMaster.value;
+    }
+  }
 
-
-
-  async togleDone(id: number) {
-    await this.taskContractService.togleDoneTask(id, this.addressUser);
-    await this.loadTasks();
+  async onUpdate(event: Key){
+    await this.formComp?.toUpdate(event);
   }
 
 }

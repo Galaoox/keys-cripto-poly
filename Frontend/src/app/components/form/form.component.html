@@ -1,4 +1,6 @@
 <form class=" needs-validation card card-body bg-dark rounded-0" #FormModal id="form-modal" [formGroup]="form" (ngSubmit)="onSubmit()">
+<h3>{{ modeUpdate ? 'Editar' : 'Crear' }}</h3>
+
     <div class="col-md-12">
       <label for="field-title" class="form-label">Titulo:</label>
       <input type="text" placeholder="Titulo" formControlName="title" id="field-title"
@@ -18,11 +20,11 @@
       </div>
     </div>
     <div class="col-md-12">
-      <label for="field-password" class="form-label">Contrasenna:</label>
+      <label for="field-password" class="form-label">Contraseña:</label>
       <div class="input-group has-validation">
-        <input type="text" placeholder="Contrasenna" formControlName="password" id="field-password"
+        <input [type]="iSpasswordShow ? 'text' : 'password'" placeholder="Contraseña" formControlName="password" id="field-password"
         class="form-control bg-dark text-white rounded-0 " validateInput required  />
-        <button class="input-group-text" type="button" (click)="iSpasswordShow = !iSpasswordShow" >
+        <button class="input-group-text" type="button" (click)="iSpasswordShow = !iSpasswordShow" [disabled]="this.form.disabled" >
           <i  [ngClass]="!iSpasswordShow ? 'bi-eye' : 'bi-eye-slash-fill'" class="bi"></i>
         </button>
         <button class="input-group-text" type="button" (click)="openGenerator()" >
@@ -45,7 +47,7 @@
       </div>
     </div>
     <div class="col-md-12 d-flex justify-content-end">
-      <button type="button" class="btn btn-danger mx-3" >Cancelar</button>
-      <button type="submit" class="btn btn-primary">Guardar</button>
+      <button type="button" class="btn btn-danger mx-3" [disabled]="this.form.disabled" >Cancelar</button>
+      <button type="submit" class="btn btn-primary" [disabled]="this.form.disabled">{{modeUpdate ? 'Actualizar': 'Crear'}}</button>
     </div>
 </form>

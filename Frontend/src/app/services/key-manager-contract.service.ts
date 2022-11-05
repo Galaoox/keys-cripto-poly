@@ -26,16 +26,16 @@ export class KeyManagerContractService {
   async getKeys(){
     try {
       const result = await this.contract.getKeys(this.addressUser, {from: this.addressUser });
-      console.log(result);
-      return result;
+      return result.map((item: Key, index: number) => {
+        return new Key({...item, rowIndex: index});
+      });
     } catch (error) {
-      console.log(error);
       return [];
     }
   }
 
-  async updateKey(key: Key){
-    await this.contract.updateKey(this.addressUser,key, {from: this.addressUser });
+  async updateKey(key: Key, rowIndex: number){
+    await this.contract.updateKey(this.addressUser,rowIndex,key, {from: this.addressUser });
   }
 
   async createKey(key: Key){

@@ -14,7 +14,6 @@ export class ValidateInputDirective implements OnInit, OnDestroy {
   ngOnInit() {
     if (this.control.statusChanges?.subscribe) {
       this.subscription = this.control.statusChanges.subscribe((control) => {
-        console.log("test", control);
         const classAdd = 'INVALID' === control ? 'is-invalid' : 'is-valid';
         const classRemove = 'INVALID' === control ? 'is-valid' : 'is-invalid';
         this.renderer.addClass(this.elmenetRef.nativeElement, classAdd);

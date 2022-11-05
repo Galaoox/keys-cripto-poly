@@ -1,19 +1,40 @@
-<!-- <app-auth></app-auth> -->
-
 <div class="container py-5">
   <div class="row">
     <div class="col-12 col-md-4">
       <div class="card card-body rounded-0 mb-4 bg-dark">
-        <h1>DApp</h1>
-        <h6 class="text-muted">Decentralized Task</h6>
+        <h2>Decentralized Key Manager</h2>
+        <h6 class="text-muted"></h6>
+        <hr />
         <span>Wallet</span>
-        <span>{{addressUser}}</span>
+        <span>{{addressUser ? addressUser : 'Conecte su wallet'}}</span>
+        <hr />
+        <div *ngIf="!hasKeyMaster; else KeyInserted">
+          <label for="field-password" class="form-label">Contraseña Maestra:</label>
+          <input type="password" placeholder="Contraseña" [formControl]="keyMaster" id="field-key-master"
+            class="form-control bg-dark text-white rounded-0 " validateInput required />
+          <div class="d-grid gap-2">
+            <button class="btn btn-primary rounded-0 mt-2" type="button" (click)="insertKey()">Ingresar</button>
+
+          </div>
+        </div>
+
+        <ng-template #KeyInserted>
+          <div>
+            <h5>Contraseña ingresada</h5>
+            <div class="d-grid gap-2">
+              <button class="btn btn-danger rounded-0 mt-2" type="button" (click)="deleteKey()">Eliminar
+                Contraseña</button>
+            </div>
+          </div>
+
+        </ng-template>
+
       </div>
 
-      <app-form></app-form>
+      <app-form #formComp (reload)="reloadData()" [keyMasterValue]="addressUser ? keyMasterValue: ''"></app-form>
     </div>
     <div class="col-md-7">
-      <app-list></app-list>
+      <app-list #list (onUpdate)="onUpdate($event)" [disabled]="!keyMasterValue || !addressUser"></app-list>
     </div>
   </div>
 </div>

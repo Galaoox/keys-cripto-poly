@@ -2,7 +2,7 @@ const KeyManagerContract = artifacts.require("KeyManagerContract");
 
 contract("KeyManagerContract", () => {
 
-    const addressTest = "0xA3fC5839C9F3C81D0159a23918f98486B5D28679";
+    const addressTest = "0x36b49c15d71a3820986Bd48A879D5adc61dC2F39";
 
     before(async () => {
         this.contract = await KeyManagerContract.deployed();
